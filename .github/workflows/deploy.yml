@@ -17,21 +17,20 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: "ec2-user"
+          username: ec2-user
           port: 22
           key: ${{ secrets.EC2_SSH_KEY }}
-          source:"."
-          target: ~/message-server 
-      
-        
+          source: "."
+          target: ~/message-server
+
       - name: Build and run on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: "ec2-user"
+          username: ec2-user
           port: 22
           key: ${{ secrets.EC2_SSH_KEY }}
-          scripts: |
+          script: |
             set -euo pipefail
             cd ~/message-server
             docker build --pull -t message-server:latest .
